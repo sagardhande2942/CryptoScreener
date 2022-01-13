@@ -15,6 +15,8 @@ class prediction_logs(models.Model):
     bid = models.CharField(max_length=50,blank=True,null=True)
     ask = models.CharField(max_length=50,blank=True,null=True)
     last_price = models.CharField(max_length=50,blank=True,null=True)
+    last_price_fifteen = models.CharField(default=0, max_length=50, blank=True,null=True)
+    fifteen_min = models.FloatField(default=0, blank=True, null = True)
 
 class prediction_counter(models.Model):
     coin_name = models.ForeignKey(prediction,on_delete=CASCADE)

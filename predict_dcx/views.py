@@ -8,7 +8,36 @@ import json2table
 from django.template import RequestContext
 import json
 import pandas as pd
+import threading
+import time
 
+def fifteenMin():
+    print('15 min')
+    prediction_logs_object = prediction_logs.objects.all()
+    for i in prediction_logs_object:
+        cur_price = i.last_price
+        last_price = i.last_price_fifteen
+        if float(last_price) == 0:
+            last_price = 1
+        if float(cur_price) < float(last_price):
+            percent_diff = ((float(last_price) - float(cur_price))/float(cur_price)) * 100
+            percent_diff = -1 * percent_diff
+            print("Difference in percentage is : {}%".format(percent_diff))
+        else:
+            percent_diff = ((float(cur_price) - float(last_price))/float(last_price)) * 100
+            print("Difference in percentage is : {}%".format(percent_diff))
+
+        obj = prediction.objects.filter(coin_name = i.coin_name).first()
+        prediction_logs.objects.filter(coin_name = obj).update(last_price_fifteen = cur_price, fifteen_min = percent_diff)
+
+def initiateCountdown():
+    time.sleep(1 * 60)
+    fifteenMin()
+
+timer = threading.Thread(target=initiateCountdown)
+timer.daemon = True
+timer.start() 
+threading.Thread.__init__.daemon = True
 
 def predict(request):     
     prediction_counter_objects = prediction_counter.objects.all()
