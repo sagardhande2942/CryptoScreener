@@ -12,11 +12,19 @@ def pred_cal():
     except:
         time.sleep(20)
         pred_cal()
-    data = response.json()
-    a = []
-    for i in data:
-        if str(i['market']).endswith('USDT'):
-            a.append(i)
+    try:
+        data = response.json()
+    except:
+        time.sleep(20)
+        pred_cal()
+    try:
+        a = []
+        for i in data:
+            if str(i['market']).endswith('USDT'):
+                a.append(i)
+    except:
+        time.sleep(20)
+        pred_cal() 
     return a
 
 def pred_cal1():
@@ -28,6 +36,9 @@ def pred_cal1():
 
 def save_to_model(i):
     pred = prediction.objects.filter(coin_name =i['market']).first()
+    latest_obj1 = prediction_logs.objects.filter(coin_name = pred)
+    latest_obj = latest_obj1.first()
+
     new_dict = {
         'coin_name':pred,
         'change_24_hour':i['change_24_hour'],
@@ -35,10 +46,10 @@ def save_to_model(i):
         'ask':i['ask'],
         'high':i['high'],
         'low':i['low'],
-        'last_price':i['last_price']
+        'last_price':i['last_price'],
+        'last_price_fifteen': latest_obj.last_price_fifteen,
+        'fifteen_min': latest_obj.fifteen_min
     }
-    latest_obj1 = prediction_logs.objects.filter(coin_name = pred)
-    latest_obj = latest_obj1.first()
     if latest_obj == None:
         prediction_logs(**new_dict).save()
     else:
