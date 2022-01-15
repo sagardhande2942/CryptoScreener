@@ -30,3 +30,8 @@ class SimpleTable(tables.Table):
     class Meta:
         model = prediction_counter 
         attrs = {"class": "table table-dark table-striped table-hover table-bordered", "id": "myTable"}
+
+class SimpleTable1(tables.Table):
+    class Meta:
+        model = prediction_logs 
+        attrs = {"class": "table table-dark table-striped table-hover table-bordered", "id": "myTable"}

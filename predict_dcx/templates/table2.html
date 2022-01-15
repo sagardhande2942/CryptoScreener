@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
+    <div class="container">
     <nav class="navbar navbar-expand  navbar-dark bg-dark sticky-top">
       <a class="navbar-brand" href="#">EZ STOX</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,20 +30,49 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="/coin/predict1">Predict1 <span class="sr-only"></span></a>
+          <a class="nav-item nav-link active" href="/coin/predict2">Predict2 <span class="sr-only"></span></a>
+          <a class="nav-item nav-link" href="/coin/predict1">Predict1 </a>
           <a class="nav-item nav-link" id="link2" href="/coin/predict">Predict</a>
-          <a class="nav-item nav-link" id="link3" href="/coin/predict2">Predict2</a>
           <a class="nav-item nav-link" id="delete" href="/coin/delete">Delete</a>
           <a class="nav-item nav-link" id="admin" href="/admin">Admin</a>
         </div>
       </div>
-    </nav> 
-    <div class="container">
+    </nav>
+
+    {% load django_tables2 %} 
+    {% render_table table %}
   </div>
 
-    <h1 class="text-white" style="position: absolute; top: 50%; left: 30%;">Sorry Your Code Was Incorrect!!!</h1>
-    <script>
 
-    </script>
+    <script>
+        setInterval(() => {
+          location.reload();
+        }, 30000);
+ 
+        //   var table = document.getElementById('myTable');
+        //   for (var i = 0, row; row = table.rows[i]; i++) {  
+        //     var counter = 0;
+        //     for (var j = 0, col; col = row.cells[j]; j++) { 
+        //       if(counter == 2 && i != 0) {
+        //         var x = document.createElement("td");
+        //         x.textContent = `INR : ${Math.round(parseFloat(col.innerText) * 4851201.98).toFixed(2)}`;
+        //         col.appendChild(x);
+        //       }
+        //       if(counter == 3 && i != 0) {
+        //         var x = document.createElement("td");
+        //         x.textContent = `INR : ${Math.round(parseFloat(col.innerText) * 4851201.98).toFixed(2)}`;
+        //         col.appendChild(x);
+        //       }
+        //       if(counter == 1 && i != 0) {
+        //         var x = col.textContent;
+        //         x = x.split('(');
+        //         x = x[1].split(')');
+        //         x = x[0];
+        //         col.textContent = x;
+        //       }
+        //       counter++;
+        //     }  
+        //   } 
+      </script>
   </body>
 </html>

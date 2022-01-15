@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core import serializers
 from predict_dcx.helper import pred_cal,save_to_model,predict_bid_logic
-from predict_dcx.models import prediction, prediction_counter,prediction_logs, SimpleTable
+from predict_dcx.models import SimpleTable1, prediction, prediction_counter,prediction_logs, SimpleTable
 import json2table
 from django.template import RequestContext
 import json
@@ -22,17 +22,19 @@ def fifteenMin():
         if float(cur_price) < float(last_price):
             percent_diff = ((float(last_price) - float(cur_price))/float(cur_price)) * 100
             percent_diff = -1 * percent_diff
-            print("Difference in percentage is : {}%".format(percent_diff))
+            # print("Difference in percentage is : {}%".format(percent_diff))
         else:
             percent_diff = ((float(cur_price) - float(last_price))/float(last_price)) * 100
-            print("Difference in percentage is : {}%".format(percent_diff))
-
-        obj = prediction.objects.filter(coin_name = i.coin_name).first()
-        prediction_logs.objects.filter(coin_name = obj).update(last_price_fifteen = cur_price, fifteen_min = percent_diff)
+            # print("Difference in percentage is : {}%".format(percent_diff))
+        percent_diff = round(float(percent_diff), 2)
+        obj = prediction.objects.filter(coin_name = i.coin_name.coin_name).first()
+        a = prediction_logs.objects.filter(coin_name = obj)
+        a.update(last_price_fifteen = cur_price, fifteen_min = percent_diff)
 
 def initiateCountdown():
     time.sleep(1 * 60)
     fifteenMin()
+    initiateCountdown()
 
 timer = threading.Thread(target=initiateCountdown)
 timer.daemon = True
@@ -54,7 +56,12 @@ def predict1(request):
     table = SimpleTable(sorted_objects)
     return render(request, "table1.html", {"table": table})
     
-
+def predict2(request):
+    prediction_logs_objects = prediction_logs.objects.all()
+    sorted_objects = prediction_logs_objects.order_by('fifteen_min')
+    sorted_objects = sorted_objects[::-1]
+    table = SimpleTable1(sorted_objects)
+    return render(request, "table2.html", {"table":table})
 
 def delete(request):
     if request.method == "POST":

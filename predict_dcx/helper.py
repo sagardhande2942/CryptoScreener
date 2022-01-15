@@ -5,6 +5,7 @@ import threading
 from datetime import datetime
 
 def pred_cal():
+    print("IN api call")
     url = "https://api.coindcx.com/exchange/ticker"
     try:
         response = requests.get(url)
@@ -14,7 +15,7 @@ def pred_cal():
     data = response.json()
     a = []
     for i in data:
-        if str(i['market']).endswith('BTC'):
+        if str(i['market']).endswith('USDT'):
             a.append(i)
     return a
 
