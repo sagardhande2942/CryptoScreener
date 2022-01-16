@@ -8,12 +8,14 @@ class TelNotificaion():
     bot1 =  telegram.Bot(token=token[1])
     bot2 =  telegram.Bot(token=token[2])
     bot3 =  telegram.Bot(token=token[3])
+    bot4 =  telegram.Bot(token=token[4])
 
     def notify_ending(self,message):
         self.bot.sendMessage(chat_id=self.chat_id[0], text=message)
         self.bot1.sendMessage(chat_id=self.chat_id[1], text=message)
         self.bot2.sendMessage(chat_id=self.chat_id[2], text=message)
         self.bot3.sendMessage(chat_id=self.chat_id[3], text=message)
+        self.bot4.sendMessage(chat_id=self.chat_id[4], text=message)
 
 # notify = TelNotificaion()
 # notify.notify_ending("hii this is sagar")
