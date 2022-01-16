@@ -73,7 +73,7 @@ def fifteenMin():
         oj.notify_ending(myString1)
 
 def initiateCountdown():
-    time.sleep(1 * 60)
+    time.sleep(2 * 60)
     fifteenMin()
     initiateCountdown()
 
