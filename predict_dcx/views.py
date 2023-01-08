@@ -78,7 +78,7 @@ def fifteenMin():
 
 
 def initiateCountdown():
-    time.sleep(1 * 15)
+    time.sleep(2 * 60)
     fifteenMin()
     initiateCountdown()
 
